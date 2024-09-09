@@ -1,0 +1,23 @@
+#include<iostream>
+using namespace std;
+//int** crMatrix(int stolb , int strok,)
+int totalCost(int numberOfCities , int** matrix , int* route){
+    int total=0;
+    
+    for(int i=0;i<numberOfCities;i++){
+        total+=matrix[route[i]]
+        [total[(i+1)%numberOfCities]];
+    }
+    return total;
+}
+
+
+int main(){
+    int numberOfCities;
+    cout<<" number of cities? : ";
+    cin>>numberOfCities;
+    
+    
+    
+    
+};
