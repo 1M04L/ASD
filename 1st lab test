@@ -1,7 +1,7 @@
-
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
+#include <chrono>
 
 using namespace std;
 
@@ -44,17 +44,17 @@ void fillMatrixRandomly(int** matrix, int numberOfCities) {
     for (int i = 0; i < numberOfCities; i++) {
         for (int j = 0; j < numberOfCities; j++) {
             if (i == j) {
-                matrix[i][j] = 0; 
+                matrix[i][j] = 0;
             } else {
-                matrix[i][j] = rand() % 100 + 1; 
+                matrix[i][j] = rand() % 100 + 1;
             }
         }
     }
 }
 
 int main() {
-    for (int numberOfCities = 12; numberOfCities <= 13; numberOfCities++) {
-        cout << "---.....///.....---" << endl;
+    for (int numberOfCities = 7; numberOfCities <= 10; numberOfCities++) {
+        cout << "(---...(.)...(.)...---)" << endl;
         cout << "count of cities: " << numberOfCities << endl;
 
         int** matrix = new int*[numberOfCities];
@@ -87,6 +87,7 @@ int main() {
             }
         }
 
+        auto start = chrono::high_resolution_clock::now();
         do {
             int currentCost = totalCost(numberOfCities, matrix, route);
 
@@ -98,13 +99,16 @@ int main() {
             }
 
         } while (nextPermutation(cities, numberOfCities));
+        auto end = chrono::high_resolution_clock::now();
+        auto duration = chrono::duration_cast<chrono::milliseconds>(end - start);
 
-        cout << " optimal route: ";
+        cout << "optimal route: ";
         for (int i = 0; i < numberOfCities; i++) {
             cout << bestRoute[i] << " ";
         }
         cout << endl;
         cout << "total Cost: " << bestRouteCost << endl;
+        cout << "time : " << duration.count() << " milliseconds" << endl;
 
         delete[] route;
         delete[] bestRoute;
@@ -116,6 +120,7 @@ int main() {
     }
     return 0;
 }
+
 // up to 10-11 = ok
 // about 11-14 = quite long time compilation
 // 14+ = long time compilation(enaugh to make me bored without compilation result)
