@@ -124,3 +124,80 @@ int main() {
 // up to 10-11 = ok
 // about 11-14 = quite long time compilation
 // 14+ = long time compilation(enaugh to make me bored without compilation result)
+
+
+
+
+/*
+
+/tmp/qvXbhgwbJQ.o
+(---...(.)...(.)...---)
+count of cities: 2
+number of da start city (from 0 to 1): 1
+optimal route: 1 0 
+total Cost: 88
+time : 0 milliseconds
+(---...(.)...(.)...---)
+count of cities: 3
+number of da start city (from 0 to 2): 2
+optimal route: 2 0 1 
+total Cost: 77
+time : 0 milliseconds
+(---...(.)...(.)...---)
+count of cities: 4
+number of da start city (from 0 to 3): 3
+optimal route: 3 0 1 2 
+total Cost: 215
+time : 0 milliseconds
+(---...(.)...(.)...---)
+count of cities: 5
+number of da start city (from 0 to 4): 4
+optimal route: 4 0 1 2 3 
+total Cost: 233
+time : 0 milliseconds
+(---...(.)...(.)...---)
+count of cities: 6
+number of da start city (from 0 to 5): 5
+optimal route: 5 0 1 2 3 4 
+total Cost: 375
+time : 0 milliseconds
+(---...(.)...(.)...---)
+count of cities: 7
+number of da start city (from 0 to 6): 6
+optimal route: 6 0 1 2 3 4 5 
+total Cost: 388
+time : 0 milliseconds
+(---...(.)...(.)...---)
+count of cities: 8
+number of da start city (from 0 to 7): 6
+optimal route: 6 0 1 2 3 4 5 7 
+total Cost: 249
+time : 2 milliseconds
+(---...(.)...(.)...---)
+count of cities: 9
+number of da start city (from 0 to 8): 6
+optimal route: 6 0 1 2 3 4 5 7 8 
+total Cost: 501
+time : 20 milliseconds
+(---...(.)...(.)...---)
+count of cities: 10
+number of da start city (from 0 to 9): 6
+optimal route: 6 0 1 2 3 4 5 7 8 9 
+total Cost: 411
+time : 330 milliseconds
+(---...(.)...(.)...---)
+count of cities: 11
+number of da start city (from 0 to 10): 6
+optimal route: 6 0 1 2 3 4 5 7 8 9 10 
+total Cost: 514
+time : 3325 milliseconds
+(---...(.)...(.)...---)
+count of cities: 12
+number of da start city (from 0 to 11): 6
+optimal route: 6 0 1 2 3 4 5 7 8 9 10 11 
+total Cost: 601
+time : 50379 milliseconds
+
+
+
+*/
