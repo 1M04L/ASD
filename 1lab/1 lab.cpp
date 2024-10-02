@@ -1,4 +1,5 @@
 #include <iostream>
+using namespace std;
 
 int totalCost(int numberOfCities , int** matrix , int* route){
     int total=0;
@@ -37,6 +38,39 @@ bool nextPermutation(int *arr, int n) {
     return true;
 }
 
+void findBestRoute(int numberOfCities, int** matrix, int startNumber, int* bestRoute, int& bestRouteCost) {
+    int *cities = new int[numberOfCities]; 
+    for (int i = 0; i < numberOfCities; i++) { 
+        cities[i] = i; 
+    } 
+ 
+    int *route = new int[numberOfCities]; 
+ 
+    route[0] = startNumber; 
+ 
+    int index = 1; 
+    for (int i = 0; i < numberOfCities; i++) { 
+        if (cities[i] != startNumber) { 
+            route[index++] = cities[i]; 
+        } 
+    } 
+ 
+    do { 
+        int currentCost = totalCost(numberOfCities, matrix, route); 
+ 
+        if (currentCost < bestRouteCost) { 
+            bestRouteCost = currentCost; 
+            for (int i = 0; i < numberOfCities; i++) { 
+                bestRoute[i] = route[i]; 
+            } 
+        } 
+ 
+    } while (nextPermutation(cities, numberOfCities));
+
+    delete[] cities;
+    delete[] route;
+}
+
 int main(){
     int numberOfCities;
     cout<<" number of cities? : ";
@@ -58,36 +92,10 @@ int main(){
     cout << "number of da city ((in scope from 0 to" << numberOfCities- 1 << "): ";
     cin >> startNumber;
 
-    int *cities = new int[numberOfCities];
-    for (int i = 0; i < numberOfCities; i++) {
-        cities[i] = i;
-    }
-
     int *bestRoute = new int[numberOfCities];
-    int bestRouteCost = 9999999; 
+    int bestRouteCost = 2147483647; 
 
-    int *route = new int[numberOfCities];
-
-    route[0] = startNumber;
-
-    int index = 1;
-    for (int i = 0; i < numberOfCities; i++) {
-        if (cities[i] != startNumber) {
-            route[index++] = cities[i];
-        }
-    }
-
-    do {
-        int currentCost = totalCost(numberOfCities, matrix, route);
-
-        if (currentCost < bestRouteCost) {
-            bestRouteCost = currentCost;
-            for (int i = 0; i < numberOfCities; i++) {
-                bestRoute[i] = route[i];
-            }
-        }
-
-    } while (nextPermutation(cities, numberOfCities));
+    findBestRoute(numberOfCities, matrix, startNumber, bestRoute, bestRouteCost);
 
     cout << "Optimal route: ";
     for (int i = 0; i < numberOfCities; i++) {
@@ -96,9 +104,7 @@ int main(){
     cout << endl;
     cout << "Total cost: " << bestRouteCost << endl;
 
-    delete[] route;
     delete[] bestRoute;
-    delete[] cities;
     for (int i = 0; i < numberOfCities; i++) {
         delete[] matrix[i];
     }
