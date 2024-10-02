@@ -3,7 +3,6 @@
 #include <ctime>
 #include <chrono>
 
-using namespace std;
 
 int totalCost(int numberOfCities, int** matrix, int* route) {
     int total = 0;
