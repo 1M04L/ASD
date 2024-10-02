@@ -41,7 +41,6 @@ bool nextPermutation(int *arr, int n) {
 }
 
 void fillMatrixRandomly(int** matrix, int numberOfCities) {
-    srand(time(0));
     for (int i = 0; i < numberOfCities; i++) {
         for (int j = 0; j < numberOfCities; j++) {
             if (i == j) {
@@ -86,6 +85,7 @@ void findBestRoute(int numberOfCities, int** matrix, int startNumber, int* bestR
 }
 
 int main() {
+     srand(time(0));
     for (int numberOfCities = 7; numberOfCities <= 10; numberOfCities++) {
         cout << "(---...(.)...(.)...---)" << endl;
         cout << "count of cities: " << numberOfCities << endl;
