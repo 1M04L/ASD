@@ -35,7 +35,7 @@ int main() {
 	if (index != -1) {
 		std::cout << "input position of yr template: " << index << std::endl;
 	} else {
-		std::cout << "cant find yr template" << std::endl;
+		std::cerr << "cant find yr template" << std::endl;
 	}
 	return 0;
 }
