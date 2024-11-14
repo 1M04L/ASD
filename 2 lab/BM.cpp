@@ -1,4 +1,3 @@
-
 #include <iostream>
 #include <string>
 #include <vector>
@@ -8,66 +7,35 @@ std::vector<int> createShiftTable(const std::string& pattern) {
     std::vector<int> shiftTable(maxSizeChar, pattern.size());
     int m = pattern.size();
     for (int i = 0; i < m - 1; ++i) {
-        shiftTable[pattern[i]] = m - i - 1;
+        shiftTable[pattern[i]] = m - 1 - i;
     }
     return shiftTable;
 }
 
-void searchPattern(const std::string& text, const std::string& pattern, int start, int end, std::vector<int>& occurrence, bool findFirstOnly) {
-    int sizeText = text.size();
-    int sizePattern = pattern.size();
-
-    if (sizePattern == 0 || sizeText < sizePattern || start < 0 || end >= sizeText || start > end) {
-        return;
-    }
-
+std::vector<int> findOccurrences(const std::string& text, const std::string& pattern) {
+    std::vector<int> occurrences;
+    int m = pattern.size();
+    int n = text.size();
     std::vector<int> shiftTable = createShiftTable(pattern);
 
-    int shift = start;
-    while (shift <= end - sizePattern + 1) {
-        int j = sizePattern - 1;
+    int i = m - 1; 
+    while (i < n) {
+        int j = m - 1;
+        int k = i; 
 
-        while (j >= 0 && pattern[j] == text[shift + j]) {
+        while (j >= 0 && pattern[j] == text[k]) {
             --j;
+            --k;
         }
 
-        if (j < 0) {
-            occurrence.push_back(shift);
-            if (findFirstOnly) {
-                return;
-            }
-            if (shift + sizePattern <= end) {
-                shift += sizePattern;
-            } else {
-                shift += 1;
-            }
-        } else {
-            int badChar = text[shift + j];
-            shift += shiftTable[badChar];
+        if (j < 0) { 
+            occurrences.push_back(i + 1 - m); 
+            i += m; 
+        } else { 
+            i += shiftTable[text[i]]; 
         }
     }
-}
-
-int findFirstPattern(const std::string& text, const std::string& pattern) {
-    std::vector<int> occurrence;
-    searchPattern(text, pattern, 0, text.size() - 1, occurrence, true);
-    if (occurrence.empty()){
-        return -1;
-      } else {
-        return occurrence[0];
-      }
-}
-
-std::vector<int> findAllOccurrence(const std::string& text, const std::string& pattern) {
-    std::vector<int> occurrence;
-    searchPattern(text, pattern, 0, text.size() - 1, occurrence, false);
-    return occurrence;
-}
-
-std::vector<int> findAllIndexOccurrence(const std::string& text, const std::string& pattern, int start, int end) {
-    std::vector<int> occurrence;
-    searchPattern(text, pattern, start, end, occurrence, false);
-    return occurrence;
+    return occurrences;
 }
 
 int main() {
@@ -80,25 +48,16 @@ int main() {
     std::cout << "Введите подстроку: ";
     std::getline(std::cin, pattern);
 
-    int firstOccurrence = findFirstPattern(text, pattern);
-    std::cout << "First occurrence: " << firstOccurrence << std::endl;
-
-    std::vector<int> allOccurrences = findAllOccurrence(text, pattern);
-    std::cout << "All occurrences: ";
-    for (int i = 0; i < allOccurrences.size(); ++i) {
-        std::cout << allOccurrences[i] << " ";
+    std::vector<int> occurrences = findOccurrences(text, pattern);
+    if (occurrences.empty()) {
+        std::cout << "Подстрока не найдена" << std::endl;
+    } else {
+        std::cout << "Позиции вхождений подстроки: ";
+        for (int occurrence : occurrences) {
+            std::cout << occurrence << " ";
+        }
+        std::cout << std::endl;
     }
-    std::cout << std::endl;
-
-    int start = 0;
-    int end = text.size() - 1;
-    std::vector<int> rangeOccurrences = findAllIndexOccurrence(text, pattern, start, end);
-
-    std::cout << "Occurrences in the range: ";
-    for (int i = 0; i < rangeOccurrences.size(); ++i) {
-        std::cout << rangeOccurrences[i] << " ";
-    }
-    std::cout << std::endl;
 
     return 0;
 }
