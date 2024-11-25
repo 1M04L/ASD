@@ -50,6 +50,7 @@ int main() {
     printArray(arr);
 
     heapSort(arr);
+    std::cout<< "sorted ";
 
     printArray(arr);
 
