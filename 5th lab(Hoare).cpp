@@ -2,19 +2,19 @@
 #include <ctime>
 #include <cstdlib>
 #include <vector>
+#include <algorithm>
 
 std::vector<int> generateArray(int n) {
     srand(time(0));
     std::vector<int> arr(n);
-    for (int i = 0; i < n; i++) {
+    for (int i = 0; i < n; ++i) {
         arr[i] = rand() % 100;
     }
     return arr;
 }
 
-
 void isSorted(const std::vector<int>& arr) {
-    for (size_t i = 1; i < arr.size(); i++) {
+    for (size_t i = 1; i < arr.size(); ++i) {
         if (arr[i - 1] > arr[i]) {
             std::cout << "array was not sorted" << std::endl;
             return;
@@ -23,24 +23,29 @@ void isSorted(const std::vector<int>& arr) {
     std::cout << "  array was sorted" << std::endl;
 }
 
-
 void quickSort(std::vector<int>& arr, int low, int high) {
     if (low < high) {
-        int pivot = arr[high];
-        int i = (low - 1);
+        int mid = low + (high - low) / 2;
+        int pivot = arr[mid];
+        int i = low;
+        int j = high;
 
-        for (int j = low; j <= high - 1; j++) {
-            if (arr[j] < pivot) {
+        while (i <= j) {
+            while (arr[i] < pivot) {
                 i++;
+            }
+            while (arr[j] > pivot) {
+                j--;
+            }
+            if (i <= j) {
                 std::swap(arr[i], arr[j]);
+                i++;
+                j--;
             }
         }
-        std::swap(arr[i + 1], arr[high]);
 
-        int partitionIndex = i + 1;
-
-        quickSort(arr, low, partitionIndex - 1);
-        quickSort(arr, partitionIndex + 1, high);
+        quickSort(arr, low, j);
+        quickSort(arr, i, high);
     }
 }
 
