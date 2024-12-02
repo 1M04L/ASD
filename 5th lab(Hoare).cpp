@@ -23,30 +23,25 @@ void isSorted(const std::vector<int>& arr) {
     std::cout << "  array was sorted" << std::endl;
 }
 
-void quickSort(std::vector<int>& arr, int low, int high) {
-    if (low < high) {
-        int mid = low + (high - low) / 2;
-        int pivot = arr[mid];
-        int i = low;
-        int j = high;
+void hoareSort(std::vector<int>& array, int left, int right) {
+    if (left >= right) return;
 
-        while (i <= j) {
-            while (arr[i] < pivot) {
-                i++;
-            }
-            while (arr[j] > pivot) {
-                j--;
-            }
-            if (i <= j) {
-                std::swap(arr[i], arr[j]);
-                i++;
-                j--;
-            }
+    int pivot = array[(left + right) / 2];
+    int i = left;
+    int j = right;
+
+    while (i <= j) {
+        while (array[i] < pivot) i++;
+        while (array[j] > pivot) j--;
+        if (i <= j) {
+            std::swap(array[i], array[j]);
+            i++;
+            j--;
         }
-
-        quickSort(arr, low, j);
-        quickSort(arr, i, high);
     }
+
+    hoareSort(array, left, j);
+    hoareSort(array, i, right);
 }
 
 int main() {
@@ -57,7 +52,7 @@ int main() {
     for (int x : arr) std::cout << x << " ";
     std::cout << std::endl;
 
-    quickSort(arr, 0, n - 1);
+    hoareSort(arr, 0, n - 1);
 
     std::cout << " sorted array: ";
     for (int x : arr) {
@@ -69,3 +64,4 @@ int main() {
 
     return 0;
 }
+
